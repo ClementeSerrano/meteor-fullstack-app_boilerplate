@@ -1,3 +1,4 @@
 import Stock from "./Stock";
+import ProductExit from "./ProductExit";
 
-export { Stock };
+export { Stock, ProductExit };

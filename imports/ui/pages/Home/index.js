@@ -46,18 +46,32 @@ export default class extends Component {
 
   handleSaveData = e => {
     e.preventDefault();
-    const { sku, exitQuantity } = this.state;
+    const { exitNumber, date, sku, exitQuantity } = this.state;
 
-    Meteor.call("update_stock", sku, exitQuantity, (err, res) => {
+    Meteor.call("query_stock", sku, err => {
       if (err) {
-        alert("Sorry, we couldn't update your stock :( Try again later!");
+        alert(err);
       } else {
-        alert(
-          "Wooow! The stock for SKU '" +
-            sku +
-            "' was just updated! Your new stock is: " +
-            res
-        );
+        Meteor.call("update_stock", sku, exitQuantity, err => {
+          if (err) {
+            alert(err);
+          } else {
+            Meteor.call(
+              "productExit_insertion",
+              exitNumber,
+              date,
+              sku,
+              exitQuantity,
+              (err, res) => {
+                if (err) {
+                  alert(err);
+                } else {
+                  alert("Woow! Insertion successful");
+                }
+              }
+            );
+          }
+        });
       }
     });
 
