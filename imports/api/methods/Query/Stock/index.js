@@ -2,10 +2,11 @@ import { Meteor } from "meteor/meteor";
 import { Stock } from "../../../collections";
 
 export default function(sku) {
-  const query = Stock.findOne({ sku: sku });
-  if (!query) {
+  const stock = Stock.findOne({ sku: sku });
+
+  if (!stock) {
     throw new Meteor.Error("Error", "Not such stock in db!");
   } else {
-    return query;
+    return stock;
   }
 }
