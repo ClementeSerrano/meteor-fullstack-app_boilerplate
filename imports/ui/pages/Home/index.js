@@ -12,7 +12,22 @@ export default class extends Component {
         <Modal
           title="Welcome!"
           content="Please fill the data"
-          button={
+          textInputs={[<TextInput />, <TextInput />, <TextInput />]}
+          buttons={[
+            <Button
+              text="Sign in"
+              onclick={this.handleClick}
+              color="#fff"
+              backgroundcolor="#0099ff"
+              hovercolor="#006bb3"
+            />,
+            <Button
+              text="Sign in"
+              onclick={this.handleClick}
+              color="#fff"
+              backgroundcolor="#0099ff"
+              hovercolor="#006bb3"
+            />,
             <Button
               text="Sign in"
               onclick={this.handleClick}
@@ -20,10 +35,8 @@ export default class extends Component {
               backgroundcolor="#0099ff"
               hovercolor="#006bb3"
             />
-          }
-        >
-          <TextInput />
-        </Modal>
+          ]}
+        />
       </Container>
     );
   }

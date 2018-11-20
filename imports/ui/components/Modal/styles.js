@@ -11,8 +11,6 @@ const Container = styled.div`
 `;
 
 const Text = styled.div`
-  display: flex;
-  flex-direction: row;
   padding: 10px 30px;
 `;
 
@@ -24,10 +22,11 @@ const Title = styled.p`
   width: 100%;
 `;
 
-const Button = styled.p`
+const Button = styled.div`
   display: flex;
-  justify-content: center;
-  padding: 10px 30px;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 30px 30px;
 `;
 
 const Paragraph = styled.p`
