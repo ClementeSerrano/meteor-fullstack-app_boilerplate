@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container } from "./styles";
-import { Modal, Button } from "../../components";
+import { Modal, Button, TextInput } from "../../components";
 
 export default class extends Component {
   handleClick = e => {
@@ -21,7 +21,9 @@ export default class extends Component {
               hovercolor="#006bb3"
             />
           }
-        />
+        >
+          <TextInput />
+        </Modal>
       </Container>
     );
   }

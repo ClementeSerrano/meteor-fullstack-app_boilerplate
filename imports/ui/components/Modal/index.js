@@ -12,6 +12,7 @@ export default class extends Component {
         <Text>
           <Paragraph>{content}</Paragraph>
         </Text>
+        <Text>{this.props.children}</Text>
         <Button>{button}</Button>
       </Container>
     );
