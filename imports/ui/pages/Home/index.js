@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { Container } from "./styles";
 import { Modal, Button, TextInput } from "../../components";
+import { Meteor } from "meteor/meteor";
 
 export default class extends Component {
   state = {
     exitNumber: "",
     date: "",
     sku: "",
-    exitQuantity: ""
+    exitQuantity: 0
   };
 
   handleChange = e => {
@@ -17,16 +18,29 @@ export default class extends Component {
 
   handleClick = e => {
     e.preventDefault();
-    alert(
-      "Exit number: " +
-        this.state.exitNumber +
-        " Date: " +
-        this.state.date +
-        " SKU: " +
-        this.state.sku +
-        " Exist Quantity: " +
-        this.state.exitQuantity
-    );
+    const sku = this.state.sku;
+    const exitQuantity = this.state.exitQuantity;
+
+    Meteor.call("query_stock", sku, (err, res) => {
+      if (err) {
+        alert("Sorry, we couldn't query your stock :( Try again later!");
+      } else {
+        const stock = res;
+
+        if (exitQuantity < stock.quantity) {
+          alert(
+            "Hey! Your stock is smaller than your exit quantity number! STOCK for SKU " +
+              sku +
+              " : " +
+              stock.quantity
+          );
+        } else {
+          alert(
+            "Your stock is ok :) STOCK for SKU " + sku + " : " + stock.quantity
+          );
+        }
+      }
+    });
     this.setState({ exitNumber: "", date: "", sku: "", exitQuantity: "" });
   };
 
@@ -37,24 +51,17 @@ export default class extends Component {
       <Container>
         <Modal
           title="Welcome!"
-          content="Please fill the data"
+          content="Please fill the data to check whether the quantity of products ordered in stock exists"
           buttons={[
             <Button
-              text="Sign in"
+              text="Check stock"
               onclick={this.handleClick}
               color="#fff"
-              backgroundcolor="#0099ff"
-              hovercolor="#006bb3"
+              backgroundcolor="#00cc00"
+              hovercolor="#008000"
             />,
             <Button
-              text="Sign in"
-              onclick={this.handleClick}
-              color="#fff"
-              backgroundcolor="#0099ff"
-              hovercolor="#006bb3"
-            />,
-            <Button
-              text="Sign in"
+              text="Save data"
               onclick={this.handleClick}
               color="#fff"
               backgroundcolor="#0099ff"
@@ -64,6 +71,7 @@ export default class extends Component {
         >
           <TextInput
             placeholder="Exit number"
+            type="text"
             onchange={this.handleChange}
             value={exitNumber}
             name="exitNumber"
@@ -71,20 +79,26 @@ export default class extends Component {
 
           <TextInput
             placeholder="Date"
+            type="date"
             onchange={this.handleChange}
             value={date}
+            name="date"
           />
 
           <TextInput
             placeholder="SKU"
+            type="text"
             onchange={this.handleChange}
             value={sku}
+            name="sku"
           />
 
           <TextInput
             placeholder="Exit quantity"
+            type="number"
             onchange={this.handleChange}
             value={exitQuantity}
+            name="exitQuantity"
           />
         </Modal>
       </Container>

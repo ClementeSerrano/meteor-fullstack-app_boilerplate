@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
-import { enroll_user } from "./methods/Insert";
+import { query_stock } from "./methods/Query";
 
 Meteor.methods({
-  enroll_user
+  query_stock
 });
