@@ -3,6 +3,15 @@ import { Container } from "./styles";
 
 export default class extends Component {
   render() {
-    return <Container />;
+    const { placeholder, value, name, onchange } = this.props;
+
+    return (
+      <Container
+        placeholder={placeholder}
+        value={value}
+        name={name}
+        onChange={onchange}
+      />
+    );
   }
 }
